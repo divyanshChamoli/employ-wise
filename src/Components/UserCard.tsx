@@ -17,14 +17,14 @@ export default function UserCard({ id, avatar, name, email, handleDelete }: User
       <button
         onClick={()=>handleDelete(id)}
         title="Delete User"
-        className=" text-red-500 border border-red-500 hover:bg-red-700 hover:text-white font-medium rounded-lg text-sm p-2 text-center    absolute right-4 top-5 "
+        className="opacity-90 text-red-500 border border-red-500 hover:bg-red-700 hover:text-white font-medium rounded-lg text-sm p-2 text-center    absolute right-4 top-5 "
       >
         <Trash2 />
       </button>
 
       <button
         onClick={()=>navigate(`/edit/${id}`)}
-        className=" text-yellow-500 border border-yellow-500 hover:bg-yellow-600 hover:text-white font-medium rounded-lg text-sm p-2 text-center absolute right-4 top-20"
+        className="opacity-90 text-yellow-500 border border-yellow-500 hover:bg-yellow-600 hover:text-white font-medium rounded-lg text-sm p-2 text-center absolute left-4 top-5"
         title="Update User Details"
       >
         <Pencil />
