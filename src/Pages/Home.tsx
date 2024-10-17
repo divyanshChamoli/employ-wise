@@ -1,6 +1,7 @@
 import { useEffect, useState } from "react";
 import UserCard from "../Components/UserCard";
 import axios from "axios";
+import { useNavigate } from "react-router-dom";
 
 interface User{
   id: number,
@@ -11,8 +12,12 @@ interface User{
 }
 
 export default function Home() {
+  const navigate = useNavigate()
+  
   const BASE_URL = import.meta.env.VITE_BASE_URL
   const GET_USERS_URL = "/api/users?page=2"
+  const DELETE_USER_URL = "/api/users/8"
+
   
   const [users, setUsers] = useState<User[] | undefined>(undefined)
 
@@ -29,6 +34,17 @@ export default function Home() {
     getUserData()
   },[])
   
+  const handleDelete =async (id: number) =>{
+    try{
+      const deleted =  await axios.delete(BASE_URL+DELETE_USER_URL)
+      const filteredUsers = users?.filter((user)=> user.id !== id)
+      setUsers((filteredUsers))
+    }
+    catch(e){
+      console.log(e)
+    }
+  }
+  
   return (
     <div className="w-full bg-gray-800">
       <div className="w-4/5 mx-auto py-12">
@@ -41,7 +57,8 @@ export default function Home() {
           {users 
           ? users.map((user)=>{
             return(
-              <UserCard key={user.id} avatar={user.avatar} name={user.first_name + " " + user.last_name} email={user.email}  />
+              <UserCard key={user.id} id={user.id} avatar={user.avatar} name={user.first_name + " " + user.last_name} email={user.email} 
+               handleDelete={() => handleDelete(user.id)}/>
             )
           })
           : null}
