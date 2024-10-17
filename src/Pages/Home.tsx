@@ -1,7 +1,6 @@
 import { useEffect, useState } from "react";
 import UserCard from "../Components/UserCard";
 import axios from "axios";
-import { useNavigate } from "react-router-dom";
 
 interface User {
   id: number;
@@ -12,8 +11,6 @@ interface User {
 }
 
 export default function Home() {
-  const navigate = useNavigate();
-
   const BASE_URL = import.meta.env.VITE_BASE_URL;
   const GET_USERS_URL = "/api/users";
   const DELETE_USER_URL = "/api/users/";
@@ -35,7 +32,7 @@ export default function Home() {
 
   const handleDelete = async (id: number) => {
     try {
-      const deleted = await axios.delete(BASE_URL + DELETE_USER_URL + id);
+      await axios.delete(BASE_URL + DELETE_USER_URL + id);
       const filteredUsers = users?.filter((user) => user.id !== id);
       setUsers(filteredUsers);
     } catch (e) {
